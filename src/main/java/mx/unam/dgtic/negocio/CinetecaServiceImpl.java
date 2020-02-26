@@ -1,8 +1,9 @@
 package mx.unam.dgtic.negocio;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.Stateless;
 import mx.unam.dgtic.datos.EntradaDeCine;
 
@@ -12,15 +13,32 @@ public class CinetecaServiceImpl implements CinetecaService {
     //Aqui va la logica de negocio del contenedor web (EJB)
     @Override
     public List<EntradaDeCine> LocateDuplicates(List<EntradaDeCine> arrayEntradas) {
-        List<EntradaDeCine> entradasDuplicadas = new ArrayList<>();
-     
-        entradasDuplicadas.add(new EntradaDeCine("B", "22"));
-        entradasDuplicadas.add(new EntradaDeCine("C", "26"));
-
         //Obtiene las butacas duplicadas
-        System.out.println("array" + arrayEntradas);
+        Map<String, String> duplicados = findDuplicates(arrayEntradas);
+        List<EntradaDeCine> duplicado = new ArrayList<>();
+        
+        for (Map.Entry<String, String> entry : duplicados.entrySet()) {
+            duplicado.add(new EntradaDeCine(entry.getKey(), entry.getValue()));
+        }
+        return duplicado;
+    }
 
-        return arrayEntradas;
+    public static Map<String, String> findDuplicates(List<EntradaDeCine> entradasDuplicadas) {
+        
+        Map<String, String> mapaCodigosArchivo = new HashMap<>();
+        for (EntradaDeCine d : entradasDuplicadas) {
+            int contador = 0;
+            //Valida que tanto la sala como el asiento esten duplicados
+            for (EntradaDeCine c : entradasDuplicadas) {
+                if (d.getSala().equals(c.getSala()) && d.getAsiento().equals(c.getAsiento())) {
+                    contador++;
+                }
+                if (contador > 1) {
+                    mapaCodigosArchivo.put(d.getSala(), d.getAsiento());
+                }
+            }
+        }
+        return mapaCodigosArchivo;
     }
 
 }
