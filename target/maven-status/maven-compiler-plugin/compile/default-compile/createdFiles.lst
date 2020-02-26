@@ -1,0 +1,4 @@
+mx/unam/dgtic/web/EntradasDeCineServlet.class
+mx/unam/dgtic/datos/EntradaDeCine.class
+mx/unam/dgtic/negocio/CinetecaService.class
+mx/unam/dgtic/negocio/CinetecaServiceImpl.class
