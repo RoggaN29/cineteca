@@ -1,6 +1,7 @@
 package mx.unam.dgtic.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -24,8 +25,19 @@ public class EntradasDeCineServlet extends HttpServlet {
             throws ServletException, IOException {
         //Aqui va la logica del ciclo de vida del contenedor web (Servlet que 
         // ocupa el metodo del EJB y lo manda al jsp)
-        List<EntradaDeCine> entradas = personaService.LocateDuplicates();
-        System.out.println("entradas: " + entradas);
+        List<EntradaDeCine> arrayEntradas = new ArrayList<>();
+        arrayEntradas.add(new EntradaDeCine("B", "22"));
+        arrayEntradas.add(new EntradaDeCine("A", "4"));
+        arrayEntradas.add(new EntradaDeCine("C", "26"));
+        arrayEntradas.add(new EntradaDeCine("A", "16"));
+        arrayEntradas.add(new EntradaDeCine("B", "22"));
+        arrayEntradas.add(new EntradaDeCine("C", "5"));
+        arrayEntradas.add(new EntradaDeCine("A", "12"));
+        arrayEntradas.add(new EntradaDeCine("B", "10"));
+        arrayEntradas.add(new EntradaDeCine("C", "26"));
+        
+        List<EntradaDeCine> entradas = personaService.LocateDuplicates(arrayEntradas);
+        //System.out.println("entradas: " + entradas);
         request.setAttribute("entradas", entradas);
         request.getRequestDispatcher("/listadoDuplicados.jsp").forward(request, response);;
     }

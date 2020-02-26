@@ -6,5 +6,5 @@ import mx.unam.dgtic.datos.EntradaDeCine;
 
 @Local
 public interface CinetecaService {
-    public List<EntradaDeCine> LocateDuplicates();
+    public List<EntradaDeCine> LocateDuplicates(List<EntradaDeCine> arrayEntradas);
 }
